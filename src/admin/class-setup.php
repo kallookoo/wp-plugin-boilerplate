@@ -12,11 +12,11 @@ namespace YourNameSpace\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( __NAMESPACE__ . '\Installer' ) ) :
+if ( ! class_exists( __NAMESPACE__ . '\Setup' ) ) :
 	/**
-	 * Installer class
+	 * Setup class
 	 */
-	class Installer {
+	class Setup {
 
 		/**
 		 * Function to handle plugin activation.
@@ -28,7 +28,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Installer' ) ) :
 		 *
 		 * @param bool $network_wide Whether the plugin is being activated network-wide.
 		 */
-		public static function on_activation( $network_wide = false ) {}
+		public static function on_activation( $network_wide = false ) {
+			if ( ! current_user_can( 'activate_plugins' ) ) {
+				return;
+
+			}
+		}
 
 		/**
 		 * Fired during plugin deactivation.
@@ -39,7 +44,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Installer' ) ) :
 		 *
 		 * @param    bool $network_wide    Whether the plugin is being deactivated network-wide.
 		 */
-		public static function on_deactivation( $network_wide = false ) {}
+		public static function on_deactivation( $network_wide = false ) {
+			if ( ! current_user_can( 'activate_plugins' ) ) {
+				return;
+			}
+		}
 	}
 
 endif;
