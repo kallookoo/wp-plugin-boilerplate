@@ -8,21 +8,6 @@
  * @license           GPL2 or later
  */
 
-namespace YourNameSpace;
+defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Class Plugin (FrontEnd)
- */
-class Plugin {
-
-	use Singleton;
-
-	/**
-	 * Construct
-	 *
-	 * @since 1.0.0
-	 */
-	private function __construct() {}
-}
+// Here you should include the code to remove everything related to the plugin, options, tables, etc...

@@ -4,7 +4,7 @@
  *
  * @package           PluginPackage
  * @author            Your Name or Company Name
- * @copyright         2023 Your Name or Company Name
+ * @copyright         2025 Your Name or Company Name
  * @license           GPL2 or later
  */
 

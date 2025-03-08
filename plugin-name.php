@@ -4,7 +4,7 @@
  *
  * @package           PluginPackage
  * @author            Your Name or Company Name
- * @copyright         2024 Your Name or Company Name
+ * @copyright         2025 Your Name or Company Name
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
@@ -13,7 +13,7 @@
  * Description:       Description of the plugin.
  * Version:           1.0.0
  * Requires at least: 6.0
- * Requires PHP:      7.0
+ * Requires PHP:      7.4
  * Requires Plugins:  my-plugin, yet-another-plugin
  * Author:            Your Name or Company Name
  * Author URI:        https://your-domain.com
@@ -29,6 +29,23 @@ namespace YourNameSpace;
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! function_exists( '\str_starts_with' ) ) {
+	/**
+	 * Checks if a string starts with a given substring.
+	 *
+	 * {@internal Declared because it does not exist until PHP version 8.0.
+	 *            Only work with the current namespace.}}
+	 *
+	 * @param string $haystack The string to search in.
+	 * @param string $needle   The substring to search for.
+	 *
+	 * @return bool True if $haystack starts with $needle, false otherwise.
+	 */
+	function str_starts_with( $haystack, $needle ) {
+		return ( 0 === strncmp( $haystack, $needle, strlen( $needle ) ) );
+	}
+}
+
 spl_autoload_register(
 	function ( $item ) {
 		if ( str_starts_with( $item, __NAMESPACE__ ) ) {
@@ -38,8 +55,13 @@ spl_autoload_register(
 				strtolower( substr( $item, strlen( __NAMESPACE__ ) ) )
 			);
 
+			$relative_file = "/includes/{$item}.php";
+			if ( str_starts_with( $item, 'admin/' ) ) {
+				$relative_file = "/{$item}.php";
+			}
+
 			foreach ( array( 'class', 'trait', 'abstract', 'interface' ) as $prefix ) {
-				$filename = preg_replace( '@([^/]+)$@', "{$prefix}-$1", __DIR__ . "/includes/{$item}.php" );
+				$filename = preg_replace( '@([^/]+)$@', "{$prefix}-$1", __DIR__ . $relative_file );
 				if ( is_readable( $filename ) ) {
 					require $filename;
 					break;
@@ -48,3 +70,6 @@ spl_autoload_register(
 		}
 	}
 );
+
+register_activation_hook( __FILE__, __NAMESPACE__ . '\Admin\Installer::on_activation' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\Admin\Installer::on_deactivation' );
