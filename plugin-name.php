@@ -5,7 +5,7 @@
  * @package           PluginPackage
  * @author            Your Name or Company Name
  * @copyright         2024 Your Name or Company Name
- * @license           GPL2 or later
+ * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Plugin Name
@@ -14,14 +14,15 @@
  * Version:           1.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.0
+ * Requires Plugins:  my-plugin, yet-another-plugin
  * Author:            Your Name or Company Name
  * Author URI:        https://your-domain.com
- * License:           GPL2 or later
+ * License:           GPL v2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Update URI:        https://your-domain-for-updates.com/my-plugin
  * Text Domain:       plugin-slug-name
  * Domain Path:       /languages
  * Network:           true
- * Update URI:        https://your-domain-for-updates.com/my-plugin
  */
 
 namespace YourNameSpace;
